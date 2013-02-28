@@ -1,0 +1,3 @@
+在emacs里用M-x shell打开shell，在提示符下输入echo %SHELL%，看一下SHELL这个环境变量的内容，在我的机子上SHELL=C:/Program Files/Emacs23/bin/cmdproxy.exe，因此emacs运行的shell就是cmdproxy.exe。
+在emacs的主目录下新建一个文件，文件名类似".emacs_shellname"，然后在这个文件里写上你要初始化的内容就可以了。
+例如根据SHELL环境变量我知道了运行的shell是cmdproxy.exe，然后我在主目录下新建了一个文件.emacs_cmdproxy.exe
