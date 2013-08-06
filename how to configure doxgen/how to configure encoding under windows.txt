@@ -1,0 +1,46 @@
+下载和安装 Doxygen
+
+到 Doxygen 官网 下载最新的Doxygen安装程序，然后安装。这个软件包包括了一个GUI界面的前端工具，可以帮助我们方便创建Doxygen配置文件和生成目标文档。
+
+下面以 Doxygen 1.8.0 为例进行讲解。
+下载和安装 chm 编译器
+
+我们使用微软古老的 HTML Help Workshop 1.3，这个软件N久没更新了。
+
+下载地址： 微软官网
+
+下载后根据提示安装。
+项目一般设置
+
+首先在“Wizard”标签的Project项进行如下设置：
+
+    项目名称：将在最新的文档首页中显示
+    源码列表：选择要生成文档的源代码或目录，可以有多个文件或目录形成一个列表。建议使用相对路径，相对于当前目录（也即当前配置文件所在的目录）
+    递归扫描：如果需要对整个源码目录下的所有子目录及文件生成文档，请勾选本项
+    输出目录：设置最终生成的帮助文档的存储路径，建议使用相对路径
+
+下一步，Mode项，根据需要设置文档生成模式。
+
+下一步，Output项，设置输出格式，勾选HTML和“prepare for compressed HTML(.chm)”
+
+然后切换到“Expert”标签的“HTML”项，设置HTML和CHM相关的选项：
+
+    GENERATE_HTMLHELP：确保已经勾选了
+    CHM_FILE：最终生成的.chm的文件名，如“HkcProjectHelp.chm”。默认为“index.chm”。可以使用路径，也可以使用相对路径，相对于上面设置的输出目录的html目录（建设使用上一级目录，如“..\MyDoc.chm”）
+    HHC_LOCATION：chm 编译器（hhc.exe）的全路径。请指到 HTML Help Workshop 的安装目录的 hhc.exe 程序
+    CHM_INDEX_ENCODING：chm索引文件编码，下面会讲到，这里填“GBK”
+
+编码设置
+
+编码设置很重要，如果设置不当，生成的文档会出现乱码。因为 Doxygen 汲及的东西多，有好几项编码设置，所以需要认真对待，根据项目的实情情况设置。
+
+所有高级设置（包括编码设置）都在“Expert”标签，重要的设置项如下：
+
+    Project/DOXYFILE_ENCODING：当前 Doxygen 配置文件本身的字符编码，默认为UTF-8，一般不需要修改
+    Project/OUTPUT_LANGUAGE：输出语言。这里是指Doxygen自己生成的导航、提示、帮助等文本的文字采用的语言。我们希望帮助文档是全中文的，所以选择Chinese
+    Input/INPUT_ENCODING：输入文件的编码。这里是指我们的源代码文件本身的编码。在Windows平台一般是系统编码（GBK），而Linux平台一般是UTF-8。请用文本编辑器查看源文件的编码。这里如果设置的不一致，源码文件的注释中所有非ASCII字符将在生成的文档中变成乱码。
+    HTMP/CHM_INDEX_ENCODING：这里设置Doxygen生成的CHM索引文件的编码，以前是不能设置的，默认为UTF-8，而微软的编译器不能识别UTF-8编码的索引文件，所以最终造成左边目录导航栏乱码。我们设置它为GBK，这样Doxygen将为我们生成GBK编码的索引文件（.hhc、.hhk、.hhp）
+
+生成CHM文档
+
+设置好了后，点击“Run”→“Run doxygen”生成最终的.chm文档，如果设置正确，打开后是全中文的了。
